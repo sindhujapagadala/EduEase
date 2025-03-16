@@ -1,0 +1,48 @@
+# Ignore API keys and secrets
+.env
+.env.local
+.env.development
+.env.production
+*.secret
+*.pem
+*.key
+*.crt
+
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore logs and debug files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS system files
+.DS_Store
+Thumbs.db
+
+# Ignore compiled files
+*.out
+*.class
+*.o
+*.so
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.iml
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore GitHub secrets and credentials
+.git-credentials

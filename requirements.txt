@@ -1,0 +1,12 @@
+openai
+langchain
+langchain_community
+pandas
+matplotlib
+seaborn
+tiktoken
+chromadb
+pypdf
+docx
+python-docx
+streamlit
