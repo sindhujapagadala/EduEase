@@ -54,13 +54,25 @@ Ensure you have the following installed before running the project:
    pip install -r requirements.txt
    ```
 
+### Setting Up Environment Variables
+
+1. **Create a `.env` file** in the project's root directory:
+   ```bash
+   touch .env
+   ```
+2. **Open the `.env` file** and add the following (replace with actual values):
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+3. **Ensure that `.env` is listed in `.gitignore`** to prevent exposing sensitive information.
+
 ### Running the Application
 
 After installation, follow these steps to run the project:
 
 1. **Start the application**:
    ```bash
-   python main.py
+   streamlit run main.py
    ```
 2. Open your browser and go to:
    ```
@@ -81,6 +93,7 @@ EduEase/
 │-- lessonsummarize.py    # Summarizes lesson content
 │-- teacheranalysis.py    # Analyzes teacher performance
 │-- wellness.py           # Manages student wellness features
+│-- .env                  # Stores environment variables (DO NOT SHARE)
 │-- requirements.txt      # Lists the Python dependencies
 │-- static/               # Contains static assets (CSS, JavaScript, images)
 │-- templates/            # HTML templates for the web interface
