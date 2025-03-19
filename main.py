@@ -1,11 +1,12 @@
 import streamlit as st
-
-from EduEase.teacheranalysis import analysis
-from EduEase.MCQ import MCQ
-from EduEase.LessonPlan import lessonplan
-from EduEase.lessonsummarize import summarize
-from EduEase.wellness import counsellor
-
+import sys
+import os
+from teacheranalysis import analysis
+from MCQ import MCQ
+from LessonPlan import lessonplan
+from lessonsummarize import summarize
+from wellness import counsellor
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 st.set_page_config(page_title="AI Assistant For Teachers", page_icon=":teacher:", layout="centered")
 
 st.markdown("<h1 style='text-align:center;font-family:Garamond,serif;color:#17252A;'>AI Assistant For Teachers</h1>", unsafe_allow_html=True)

@@ -63,6 +63,7 @@ Ensure you have the following installed before running the project:
 2. **Open the `.env` file** and add the following (replace with actual values):
    ```
    OPENAI_API_KEY=your_openai_api_key_here
+   GEMINI_API_KEY=your_genai_api_key_here
    ```
 3. **Ensure that `.env` is listed in `.gitignore`** to prevent exposing sensitive information.
 

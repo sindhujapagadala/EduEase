@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+import google.generativeai as genai
 import re
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -11,15 +11,16 @@ from dotenv import load_dotenv
 # Load API keys from .env
 load_dotenv()
 
-# Access the keys
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Access the Gemini API key
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-openai_key = OPENAI_API_KEY
+# Configure Gemini API
+genai.configure(api_key=GEMINI_API_KEY)
 
 
-# Function to get MCQ questions from OpenAI GPT-3.5
+# Function to get MCQ questions from Gemini API
 def generate_mcq_questions(topic, difficulty, num_questions):
-    prompt =  f"""
+    prompt = f"""
     Generate a multiple-choice quiz with the following specifications:
     - Topic: "{topic}"
     - Difficulty level: "{difficulty}"
@@ -47,16 +48,11 @@ def generate_mcq_questions(topic, difficulty, num_questions):
     Quiz:
     """
     
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "system", "content": "You are a expert who helps in generating MCQs."},
-                  {"role": "user", "content": prompt}],
-        max_tokens=1500,
-        n=1,
-        stop=None,
-        temperature=0.4
-    )
-    return response.choices[0].message.content
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    
+    return response.text
+
 
 # Function to format the generated quiz to exclude answers and add selection options
 def format_quiz(quiz):
@@ -75,6 +71,7 @@ def format_quiz(quiz):
     if current_question:
         formatted_quiz.append(current_question)
     return formatted_quiz
+
 
 # Function to generate a DOCX document
 def generate_docx(quiz, heading1, heading2):
@@ -104,6 +101,7 @@ def generate_docx(quiz, heading1, heading2):
     doc_io.seek(0)
     
     return doc_io
+
 
 # Streamlit app
 def MCQ():

@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
@@ -7,11 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the keys
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Example: Use the OpenAI API key in a request
-import openai
-openai_key = OPENAI_API_KEY
+# Configure Gemini API
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 def generate_lesson_plan(unit_details, session_duration, num_sessions):
@@ -38,28 +37,20 @@ def generate_lesson_plan(unit_details, session_duration, num_sessions):
     The lesson plan should be well-structured, easy to follow, and include engaging and relevant YouTube resources to enhance the learning experience.
     """
 
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=2048,
-        temperature=0.7,
-    )
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
 
-    lesson_plan = response.choices[0].message.content
-    return lesson_plan
+    return response.text
 
 
 def get_motivational_content():
-    prompt = "Give a motivational quote for a teacher who is nervous for presentation"
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
-    return response.choices[0].message.content
+    prompt = "Give a motivational quote for a teacher who is nervous for a presentation."
+    
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    
+    return response.text
+
 
 def lessonplan():
     # st.title("Lesson Plan Generator")

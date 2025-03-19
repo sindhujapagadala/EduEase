@@ -2,14 +2,14 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import openai
+import google.generativeai as genai 
 from docx import Document
 from docx.shared import Pt
 from io import BytesIO
 import docx
-from EduEase.animations import display_cards
+from animations import display_cards
 
-from EduEase.customquery import query_chatgpt
+from customquery import query_chatgpt
 
 import os
 from dotenv import load_dotenv
@@ -18,10 +18,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Access the keys
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
-openai_key = OPENAI_API_KEY
+genai.configure(api_key=GEMINI_API_KEY)
 
 # Cache data loading function to prevent refreshing
 @st.cache_data
@@ -59,7 +59,7 @@ def get_suggestions(student_name, marks_data, attendance_data):
     By using this example rules I provided generate the content and keep it in form of bullet points and not more than 4
     """
 
-    response = openai.chat.completions.create(
+    response = genai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
     )
@@ -78,7 +78,7 @@ def get_class_suggestions(subject_avgs):
     - Provide general tips to maintain or boost class motivation
     """
     
-    response = openai.chat.completions.create(
+    response = genai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
     )
@@ -138,7 +138,7 @@ def get_subject_suggestions(subject):
     Make sure to keep this in bullet points not exceeding 3 and give the best response based on the example that I provided and the rules
     """
     
-    response = openai.chat.completions.create(
+    response = genai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
     )
@@ -431,7 +431,7 @@ def analysis():
                     asked by the user you are  the best in analyzing data in whole world
                     You do not have to show how you are calculating the answers"""
 
-                    response = openai.chat.completions.create(
+                    response = genai.chat.completions.create(
                         model="gpt-3.5-turbo",
                         messages=[
                             {'role':"system","content":prompt2},
