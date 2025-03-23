@@ -84,5 +84,3 @@ def display_cards(title, average, highest, lowest):
         """,
         unsafe_allow_html=True,
     )
-
-

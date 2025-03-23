@@ -1,5 +1,7 @@
 import streamlit as st
+import openai
 import google.generativeai as genai
+
 import re
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -11,16 +13,20 @@ from dotenv import load_dotenv
 # Load API keys from .env
 load_dotenv()
 
-# Access the Gemini API key
+# Access the keys
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Access the keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
+openai_key = OPENAI_API_KEY
 
-# Function to get MCQ questions from Gemini API
+
+# Function to get MCQ questions from OpenAI GPT-3.5
 def generate_mcq_questions(topic, difficulty, num_questions):
-    prompt = f"""
+    prompt =  f"""
     Generate a multiple-choice quiz with the following specifications:
     - Topic: "{topic}"
     - Difficulty level: "{difficulty}"
@@ -52,8 +58,6 @@ def generate_mcq_questions(topic, difficulty, num_questions):
     response = model.generate_content(prompt)
     
     return response.text
-
-
 # Function to format the generated quiz to exclude answers and add selection options
 def format_quiz(quiz):
     lines = quiz.split("\n")
@@ -71,7 +75,6 @@ def format_quiz(quiz):
     if current_question:
         formatted_quiz.append(current_question)
     return formatted_quiz
-
 
 # Function to generate a DOCX document
 def generate_docx(quiz, heading1, heading2):
@@ -102,7 +105,6 @@ def generate_docx(quiz, heading1, heading2):
     
     return doc_io
 
-
 # Streamlit app
 def MCQ():
     st.title("MCQ Quiz Generator")
@@ -122,9 +124,9 @@ def MCQ():
                 formatted_quiz = format_quiz(quiz)
                 st.subheader("Generated Quiz:")
                 if institute_name:
-                    st.write(f"*{institute_name}*")
+                    st.write(f"{institute_name}")
                 if quiz_title:
-                    st.write(f"*{quiz_title}*")
+                    st.write(f"{quiz_title}")
                 
                 # Store the quiz in session state
                 st.session_state['quiz'] = formatted_quiz

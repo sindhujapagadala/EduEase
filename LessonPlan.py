@@ -37,20 +37,28 @@ def generate_lesson_plan(unit_details, session_duration, num_sessions):
     The lesson plan should be well-structured, easy to follow, and include engaging and relevant YouTube resources to enhance the learning experience.
     """
 
-    model = genai.GenerativeModel("gemini-1.5-pro")
-    response = model.generate_content(prompt)
+    response = genai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=2048,
+        temperature=0.7,
+    )
 
-    return response.text
+    lesson_plan = response.choices[0].message.content
+    return lesson_plan
 
 
 def get_motivational_content():
-    prompt = "Give a motivational quote for a teacher who is nervous for a presentation."
-    
-    model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(prompt)
-    
-    return response.text
-
+    prompt = "Give a motivational quote for a teacher who is nervous for presentation"
+    response = genai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+    return response.choices[0].message.content
 
 def lessonplan():
     # st.title("Lesson Plan Generator")

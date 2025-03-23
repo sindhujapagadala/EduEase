@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import google.generativeai as genai 
+import google.generativeai as genai
+
 from docx import Document
 from docx.shared import Pt
 from io import BytesIO
@@ -20,8 +21,9 @@ load_dotenv()
 # Access the keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-
+# Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
+
 
 # Cache data loading function to prevent refreshing
 @st.cache_data
@@ -255,7 +257,7 @@ def analysis():
                 if attendance < 50:
                     st.error("🚨 CRITICAL WARNING: Attendance is dangerously low. Immediate action is required to avoid severe academic consequences.")
                 elif attendance < 75:
-                    st.warning("⚠️ Attendance is below 75%. This can significantly impact performance.")
+                    st.warning("⚠ Attendance is below 75%. This can significantly impact performance.")
                 
                 # Get personalized suggestions from ChatGPT 3.5
                 st.markdown("<h1 style=font-size:30px;font-family:Garamond,serif;>Personalized Suggestions</h1>",unsafe_allow_html=True)
@@ -297,7 +299,7 @@ def analysis():
                 
                 selected_subject = st.selectbox("Select a weak subject to get improvement suggestions:", weak_subjects)
                 if selected_subject:
-                    st.write(f"**Suggestions to Improve Performance in {selected_subject}:**")
+                    st.write(f"*Suggestions to Improve Performance in {selected_subject}:*")
                     subject_suggestions = get_subject_suggestions(selected_subject)
                     st.write(subject_suggestions)
                 
@@ -465,5 +467,3 @@ def analysis():
                 
     else:
         st.info("Please upload a CSV file with the following columns: Roll No, Name, Attendance, and at least one subject column.")
-
-

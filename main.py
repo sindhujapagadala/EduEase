@@ -1,16 +1,15 @@
 import streamlit as st
 import sys
 import os
-import openai
 from teacheranalysis import analysis
 from MCQ import MCQ
 from LessonPlan import lessonplan
 from lessonsummarize import summarize
 from wellness import counsellor
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-st.set_page_config(page_title="AI Assistant For Teachers", page_icon=":teacher:", layout="centered")
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), '..')))
+st.set_page_config(page_title="Your Smart Teaching Companion", page_icon=":teacher:", layout="centered")
 
-st.markdown("<h1 style='text-align:center;font-family:Garamond,serif;color:#17252A;'>AI Assistant For Teachers</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center;font-family:Garamond,serif;color:#17252A;'>Your Smart Teaching Companion</h1>", unsafe_allow_html=True)
 
 st.write("""
 <style>
@@ -43,7 +42,7 @@ st.write("""
     }
          
    .stSidebar {
-        background-color: #124E66;
+        background-color: #1F2839;
     }   
            
    .stInfo {
@@ -52,21 +51,21 @@ st.write("""
 </style>
 """, unsafe_allow_html=True)
 
-options = st.sidebar.selectbox("What would you like to do?",["Perform Analysis","Generate Quiz","Generate Lesson Plan","Summarize Lesson","Get Counselling By AI"])
+options = st.sidebar.selectbox("How May I Assist?",["🧑‍🏫 Perform Analysis","📝 Generate Quiz","📋 Generate Lesson Plan","📄 Summarize Lesson","💡 Virtual AI Counsellor"])
 
-if options == "Perform Analysis":
+if options == "🧑‍🏫 Perform Analysis":
     analysis()
 
-elif options=="Generate Quiz":
+elif options=="📝 Generate Quiz":
     MCQ()
     
-elif options=="Generate Lesson Plan":
+elif options=="📋 Generate Lesson Plan":
     lessonplan()
 
-elif options=="Summarize Lesson":
+elif options=="📄 Summarize Lesson":
     summarize()
 
-elif options=="Get Counselling By AI":
+elif options=="💡 Virtual AI Counsellor":
     counsellor()
 
 hide_st_style = """
