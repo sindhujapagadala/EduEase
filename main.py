@@ -1,6 +1,7 @@
 import streamlit as st
 import sys
 import os
+import openai
 from teacheranalysis import analysis
 from MCQ import MCQ
 from LessonPlan import lessonplan

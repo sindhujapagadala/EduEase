@@ -37,7 +37,7 @@ def generate_lesson_plan(unit_details, session_duration, num_sessions):
     The lesson plan should be well-structured, easy to follow, and include engaging and relevant YouTube resources to enhance the learning experience.
     """
 
-    model = genai.GenerativeModel("gemini-pro")
+    model = genai.GenerativeModel("gemini-1.5-pro")
     response = model.generate_content(prompt)
 
     return response.text

@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import openai
 import google.generativeai as genai
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA

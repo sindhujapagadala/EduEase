@@ -2,6 +2,7 @@ import streamlit as st
 import time
 import openai
 import langchain
+
 import google.generativeai as genai  # Import Gemini API
 from langchain.llms import OpenAI
 from langchain.vectorstores import Chroma
@@ -14,8 +15,8 @@ from dotenv import load_dotenv
 # Load API keys from .env
 load_dotenv()
 
-# Access API keys
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Configure Gemini API
