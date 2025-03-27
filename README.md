@@ -3,10 +3,10 @@
 EduEase is a versatile platform designed to alleviate the workload of teachers. It offers a unified interface where educators can effortlessly generate quizzes and lesson plans, track student performance both on a class-wide and individual level, and summarize lessons. Additionally, EduEase provides a space for mental well-being support, ensuring teachers receive the care they need while focusing on their students. The platform streamlines various tasks, empowering teachers to manage their responsibilities more efficiently and focus on fostering a better learning environment.
 
 ## Contributors
-   1.[Vennela Varshini Anasoori](https://www.linkedin.com/in/vennela-varshini-anasoori/)
-   2.[Hansika Reddy](https://www.linkedin.com/in/hansika-reddy-a32361325/)
-   3.[Sindhuja Pagadala](https://www.linkedin.com/in/sindhuja-pagadala-a5a290325/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
-   4.[Khushi Arya](https://www.linkedin.com/in/khushi-arya-aa1515327/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+   - [Vennela Varshini Anasoori](https://www.linkedin.com/in/vennela-varshini-anasoori/)
+   - [Hansika Reddy](https://www.linkedin.com/in/hansika-reddy-a32361325/)
+   - [Sindhuja Pagadala](https://www.linkedin.com/in/sindhuja-pagadala-a5a290325/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+   - [Khushi Arya](https://www.linkedin.com/in/khushi-arya-aa1515327/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ## Inspiration
    In recent times, educators in schools, coaching centers, and colleges often struggle with overwhelming workloads, especially when tasked with providing individualized feedback to students in large classrooms. The high teacher-to-student ratios exacerbate this issue, leaving educators with limited time to focus on their core responsibilities of teaching and mentoring. As a result, teachers are increasingly prone to stress and burnout, often lacking adequate support, which hinders their ability to efficiently manage their responsibilities.
