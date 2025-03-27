@@ -54,7 +54,7 @@ def generate_mcq_questions(topic, difficulty, num_questions):
     Quiz:
     """
     
-    model = genai.GenerativeModel("gemini-pro")
+    model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
     
     return response.text

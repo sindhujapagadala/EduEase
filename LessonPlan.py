@@ -38,7 +38,7 @@ def generate_lesson_plan(unit_details, session_duration, num_sessions):
     """
 
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[
             {"role": "user", "content": prompt}
         ],
@@ -53,7 +53,7 @@ def generate_lesson_plan(unit_details, session_duration, num_sessions):
 def get_motivational_content():
     prompt = "Give a motivational quote for a teacher who is nervous for presentation"
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[
             {"role": "user", "content": prompt}
         ]

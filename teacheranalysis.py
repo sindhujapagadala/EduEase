@@ -62,7 +62,7 @@ def get_suggestions(student_name, marks_data, attendance_data):
     """
 
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
@@ -81,7 +81,7 @@ def get_class_suggestions(subject_avgs):
     """
     
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
@@ -141,7 +141,7 @@ def get_subject_suggestions(subject):
     """
     
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
@@ -434,7 +434,7 @@ def analysis():
                     You do not have to show how you are calculating the answers"""
 
                     response = genai.chat.completions.create(
-                        model="gpt-3.5-turbo",
+                        model="gemini-2.0-flash",
                         messages=[
                             {'role':"system","content":prompt2},
                             {"role": "user", "content": prompt}

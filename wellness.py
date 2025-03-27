@@ -77,7 +77,7 @@ def counsellor():
                 chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
             )
             
-            model = genai.GenerativeModel("gemini-pro")
+            model = genai.GenerativeModel("gemini-2.0-flash")
             result = qa_chain({"query": prompt})
 
             # Simulate stream of response with milliseconds delay

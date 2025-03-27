@@ -34,7 +34,7 @@ def query_chatgpt(question, context):
     You do not have to show how you are calculating the answers"""
 
     response = genai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gemini-2.0-flash",
         messages=[
             {'role':"system","content":prompt2},
             {"role": "user", "content": prompt}
