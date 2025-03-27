@@ -6,7 +6,7 @@ from MCQ import MCQ
 from LessonPlan import lessonplan
 from lessonsummarize import summarize
 from wellness import counsellor
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 st.set_page_config(page_title="Your Smart Teaching Companion", page_icon=":teacher:", layout="centered")
 
 st.markdown("<h1 style='text-align:center;font-family:Garamond,serif;color:#17252A;'>Your Smart Teaching Companion</h1>", unsafe_allow_html=True)

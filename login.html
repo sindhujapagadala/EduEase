@@ -20,7 +20,7 @@
         }
         .container {
             display: flex;
-            background: white;
+            background: #DFE4DD;
             width: 90vw;
             height: 90vh;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -32,7 +32,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #e0eaff;
+            background: #1F2839;
             padding: 20px;
         }
         .illustration img {
@@ -74,12 +74,12 @@
             transition: background 0.3s ease, transform 0.2s;
         }
         .login-btn {
-            background: #007bff;
+            background: #1F2839;
             color: white;
             margin-top: 15px;
         }
         .login-btn:hover {
-            background: #0056b3;
+            background: #3e4e6a;
         }
         .login-btn:active {
             transform: scale(0.98);
@@ -125,7 +125,7 @@
     <div class="container">
         <div class="left-section">
             <div class="illustration">
-                <img src="illustration.png" alt="Illustration">
+                <img src="image.png" alt="Illustration">
             </div>
         </div>
         <div class="right-section">
@@ -150,7 +150,7 @@
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             if (username && password) {
-                window.location.href = "https://localhost:8501";
+                window.location.href = "https://localhost:8502";
             } else {
                 alert("Please fill in all fields.");
             }
