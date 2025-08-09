@@ -1,68 +1,70 @@
 import streamlit as st
 import pandas as pd
 import google.generativeai as genai
-
 import os
 from dotenv import load_dotenv
 
 # Load API keys from .env
 load_dotenv()
 
-# Access the keys
+# Access the GEMINI API key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
-def query_chatgpt(prompt):
-    return "Response from ChatGPT"
-
-# Function to query ChatGPT with a specific question and dataset context
-def query_chatgpt(question, context):
-    prompt = f"""
-    Given the following dataset:
-    {context}
-
-    Answer the following question consisely and write your final calculation:
-    {question}
+# Function to query Gemini with dataset context
+def query_gemini(question, context):
     """
+    Sends a question and dataset context to Gemini and returns the answer.
+    """
+    # System-like role prompt
+    prompt2 = """You are a teacher who excels in statistics.
+After receiving the data you have to do calculations and answer the query 
+asked by the user. You are the best in analyzing data in the whole world.
+You do not have to show how you are calculating the answers."""
 
-    prompt2="""You are a teacher who excels in statistics 
-    after recieving the data you have to do calculations and answer the query 
-    asked by the user you are  the best in analyzing data in whole world
-    You do not have to show how you are calculating the answers"""
+    # Combine context + question
+    final_prompt = f"""{prompt2}
 
-    response = genai.chat.completions.create(
-        model="gemini-2.0-flash",
-        messages=[
-            {'role':"system","content":prompt2},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    return response.choices[0].message.content
+Given the following dataset:
+{context}
 
-# Streamlit app
+Answer the following question concisely and write your final calculation:
+{question}
+"""
 
-    upload_file = st.file_uploader("Upload CSV file with student data", type="csv")
+    # Use Gemini's chat-like API
+    model = genai.GenerativeModel("gemini-1.5-pro")  # or gemini-1.5-flash
+    response = model.generate_content(final_prompt)
 
-    if upload_file is not None:
-        # Load the data
-        df = pd.read_csv(uploaded_file)
+    return response.text.strip()
 
-        # Display the dataframe
-        st.write("### Uploaded Data", df)
+# -----------------------
+# Streamlit App
+# -----------------------
 
-        # Ask the teacher to input a question
-        question = st.text_area("Ask a question about the dataset:")
+st.title("EduEase - Dataset Query with Gemini AI")
 
-        if st.button("Get Answer"):
-            # Convert dataframe to a string format
-            context = df.to_string(index=False)
+uploaded_file = st.file_uploader("Upload CSV file with student data", type="csv")
 
-            # Query ChatGPT
-            answer = query_chatgpt(question, context)
+if uploaded_file is not None:
+    # Load the data
+    df = pd.read_csv(uploaded_file)
 
-            # Display the answer
-            st.write("### Answer from ChatGPT")
-            st.write(answer)
+    # Display the dataframe
+    st.write("### Uploaded Data", df)
+
+    # Ask the teacher to input a question
+    question = st.text_area("Ask a question about the dataset:")
+
+    if st.button("Get Answer"):
+        # Convert dataframe to a string format
+        context = df.to_string(index=False)
+
+        # Query Gemini
+        answer = query_gemini(question, context)
+
+        # Display the answer
+        st.write("### Answer from Gemini")
+        st.write(answer)
