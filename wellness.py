@@ -20,9 +20,9 @@ def counsellor():
 
     # Use local HuggingFace embeddings instead of OpenAI embeddings
     # (Gemini does not directly provide vector embeddings API yet in LangChain)
-    embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2", model_kwargs={"device": "cpu"})
 
-    # Load or create vector database
+    # Load or create vector dwatabase
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
 
     st.markdown(

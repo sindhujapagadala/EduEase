@@ -37,33 +37,46 @@ After generating the lesson plan, please double-check all the YouTube URLs to co
 The lesson plan should be well-structured, easy to follow, and include engaging and relevant YouTube resources to enhance the learning experience.
 """
 
-    # Use Gemini to generate the content
-    model = genai.GenerativeModel("gemini-1.5-pro")  # or "gemini-1.5-flash"
-    response = model.generate_content(prompt)
-
-    return response.text.strip()
+    try:
+        model = genai.GenerativeModel("gemini-1.5-pro")
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        st.warning(f"Error with gemini-1.5-pro: {e}. Switching to gemini-1.5-flash...")
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return response.text.strip()
 
 # Function to get motivational content
 def get_motivational_content():
     prompt = "Give a motivational quote for a teacher who is nervous for a presentation"
 
-    model = genai.GenerativeModel("gemini-1.5-pro")
-    response = model.generate_content(prompt)
-
-    return response.text.strip()
+    try:
+        model = genai.GenerativeModel("gemini-1.5-pro")
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception:
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return response.text.strip()
 
 # Streamlit UI for Lesson Plan
 def lessonplan():
+    st.title("📚 AI-Powered Lesson Planner")
     unit_details = st.text_area("Provide details about the unit you want to teach:", height=200)
     session_duration = st.number_input("Enter the duration of each session (in hours):", min_value=1, step=1)
     num_sessions = st.number_input("Enter the number of sessions to complete the topic:", min_value=1, step=1)
 
     if st.button("Generate Lesson Plan"):
         if unit_details and session_duration and num_sessions:
-            lesson_plan = generate_lesson_plan(unit_details, session_duration, num_sessions)
-            st.header("Lesson Plan")
-            st.write(lesson_plan)
-            motivation = get_motivational_content()
-            st.success(motivation)
+            with st.spinner("Generating lesson plan..."):
+                lesson_plan = generate_lesson_plan(unit_details, session_duration, num_sessions)
+                st.header("Lesson Plan")
+                st.write(lesson_plan)
+                motivation = get_motivational_content()
+                st.success(motivation)
         else:
             st.warning("Please provide all the required information.")
+
+if __name__ == "__main__":
+    lessonplan()
