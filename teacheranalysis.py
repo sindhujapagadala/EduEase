@@ -24,18 +24,14 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 
-# Cache data loading function to prevent refreshing
+# -------------------- Helper / Cached functions --------------------
 @st.cache_data
 def load_data(file):
     return pd.read_csv(file)
 
 
-# Function to get improvement suggestions from Gemini
 @st.cache_data
 def get_suggestions(student_name, marks_data, attendance_data):
-    subject_strengths = [f"{subject}: {marks} marks" for subject, marks in marks_data.items() if marks >= 60]
-    subject_weaknesses = [f"{subject}: {marks} marks" for subject, marks in marks_data.items() if marks < 60]
-    
     prompt = f"""
     Student Name: {student_name}
     Subject Marks: {marks_data}
@@ -48,23 +44,13 @@ def get_suggestions(student_name, marks_data, attendance_data):
     - Address attendance issues if present
     - Suggestions must be specific to the student's performance
     - Suggest ways to maintain or boost motivation
-
-    Example:
-    • Murtuza shines in English and Maths! Keep up the excellent work.
-    • Science needs improvement — attend more practical sessions and relate concepts to real life.
-    • Maintain high focus in strong subjects to sustain performance.
-    • Improve attendance to avoid missing important lessons.
-
-    Follow this style. Max 4 bullet points.
+    Max 4 bullet points.
     """
-
-    # Use Gemini model
     model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
-
     return response.text.strip() if response and hasattr(response, 'text') else "No suggestions generated."
 
-# Function to get class-wide improvement suggestions from Gemini
+
 @st.cache_data
 def get_class_suggestions(subject_avgs):
     prompt = f"""
@@ -76,20 +62,15 @@ def get_class_suggestions(subject_avgs):
     - Suggest activities or resources to help students understand difficult concepts
     - Provide general tips to maintain or boost class motivation
     """
-
-    # Use Gemini API
     model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
-
     return response.text.strip() if response and hasattr(response, "text") else "No suggestions generated."
 
 
-# Function to calculate overall performance
 def calculate_performance(marks):
     return sum(marks) / len(marks)
 
 
-# Function to plot bar chart for performance
 def plot_performance(subjects, marks, title):
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x=subjects, y=marks, palette="coolwarm", ax=ax)
@@ -108,68 +89,42 @@ def plot_performance(subjects, marks, title):
     return fig
 
 
-# Function to analyze subject performance
 def analyze_subject_performance(df, subjects):
     weak_subjects = []
     strong_subjects = []
     avg_marks = df[subjects].mean()
-    
     for subject in subjects:
         if avg_marks[subject] < 60:
             weak_subjects.append(subject)
         else:
             strong_subjects.append(subject)
-    
     return weak_subjects, strong_subjects, avg_marks
 
-# Function to get subject-specific improvement suggestions from Gemini
+
 @st.cache_data
 def get_subject_suggestions(subject):
     prompt = f"""
-    The class is struggling in {subject}. Provide brief strategies to help students improve in this subject (50 words max):
-    - Additional classes or tutoring
-    - Recommended study resources or activities
-    - Tips to improve understanding and retention of material
-    - Methods to boost motivation and engagement in the subject
-
-    Let's take an example for geography, change this as per the subject:
-    Actively participate in class discussions. Share your thoughts and questions!
-    Explore online resources like YouTube educational channels. They can offer additional explanations and diverse perspectives.
-    Utilize AI tools for extra practice. These tools can provide personalized exercises to solidify your understanding.
-    Form study groups with classmates who share similar interests. Discuss notes, solve problems together, and test each other's knowledge.
-    Engage in hands-on activities like map quizzes or geography games. Learning can be fun and interactive!
-    Seek additional help from teachers or tutors if you face specific challenges. They're here to support you!
-    Maintain consistent attendance and focus during class. This will maximize your learning potential.  
-
-    Make sure to keep this in bullet points not exceeding 3 and give the best response based on the example that I provided and the rules
+    The class is struggling in {subject}. Provide brief strategies to help students improve in this subject (50 words max) in max 3 bullet points.
     """
-
-    # Use Gemini API (configured earlier with GEMINI_API_KEY from .env)
     model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
-
     return response.text.strip() if response and hasattr(response, "text") else "No suggestions generated."
 
 
-# Function to get attendance insights
 def attendance_insights(df):
     avg_attendance = df['Attendance'].mean()
     min_attendance = df['Attendance'].min()
     max_attendance = df['Attendance'].max()
-    
     avg_marks = df[[col for col in df.columns if col not in ['Roll No', 'Name', 'Attendance']]].mean(axis=1)
     correlation = df['Attendance'].corr(avg_marks)
-    
     if correlation > 0.5:
         attendance_impact = "Low attendance is significantly impacting performance. Ensure regular attendance."
     elif correlation > 0:
         attendance_impact = "Attendance is moderately impacting performance. Try to attend more regularly."
     else:
-        attendance_impact = "Attendance is not a major issue for performance. Focus on study habits and concentration."
-    
+        attendance_impact = "Attendance is not a major issue for performance. Focus on study habits."
     lowest_attendance_student = df[df['Attendance'] == min_attendance]['Name'].values[0]
     highest_attendance_student = df[df['Attendance'] == max_attendance]['Name'].values[0]
-    
     insights = f"""
     - Average Attendance: {avg_attendance:.2f}%
     - Lowest Attendance: {min_attendance}% (Student: {lowest_attendance_student})
@@ -179,7 +134,6 @@ def attendance_insights(df):
     return insights
 
 
-# Function to save insights to a docx file
 def save_insights_to_docx(title, insights, charts):
     doc = Document()
     doc.add_heading(title, level=1)
@@ -196,6 +150,53 @@ def save_insights_to_docx(title, insights, charts):
     return doc
 
 
+# -------------------- New: query_gemini function (fixes NameError) --------------------
+def query_gemini(question: str, df: pd.DataFrame) -> str:
+    """
+    Build a concise dataset summary and ask Gemini the question.
+    We intentionally include only a short summary + first 10 rows to keep prompts small.
+    """
+    # Basic metadata
+    n_rows = len(df)
+    columns = df.columns.tolist()
+
+    # Numeric summary (if present)
+    numeric_df = df.select_dtypes(include=['number'])
+    if not numeric_df.empty:
+        numeric_summary = numeric_df.describe().round(2).to_string()
+    else:
+        numeric_summary = "No numeric columns."
+
+    # Head (limit to first 10 rows)
+    head = df.head(10).to_string(index=False)
+
+    prompt = f"""
+You are a helpful assistant that answers questions about the dataset provided.
+
+Dataset summary:
+- Rows: {n_rows}
+- Columns: {columns}
+
+Numeric summary (statistics for numeric columns):
+{numeric_summary}
+
+First up to 10 rows of the table:
+{head}
+
+Question:
+{question}
+
+Answer concisely, cite column names or row examples where relevant. If the question cannot be answered from the dataset, say you don't have enough information.
+"""
+    try:
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        response = model.generate_content(prompt)
+        return response.text.strip() if response and hasattr(response, "text") else "No answer generated."
+    except Exception as e:
+        return f"Error when calling Gemini: {e}"
+
+
+# -------------------- Main analysis / Streamlit UI --------------------
 def analysis():
     uploaded_file = st.file_uploader("Upload CSV file with student data", type="csv")
     analysis_type = st.sidebar.radio(
@@ -288,16 +289,24 @@ def analysis():
             highest_marks = df[subjects].max()
             lowest_marks = df[subjects].min()
 
-            display_cards("Class Subject Performance", avg_marks_series.mean(), highest_marks.max(), lowest_marks.min())
+            # display_cards assumed to be your UI animation helper
+            try:
+                display_cards("Class Subject Performance", avg_marks_series.mean(), highest_marks.max(), lowest_marks.min())
+            except Exception:
+                # if animations fail, ignore and continue
+                pass
 
-            selected_subject = st.selectbox("Select a weak subject to get improvement suggestions:", weak_subjects)
-            if selected_subject:
-                st.write(f"*Suggestions to Improve Performance in {selected_subject}:*")
-                subject_suggestions = get_subject_suggestions(selected_subject)
-                st.write(subject_suggestions)
+            if weak_subjects:
+                selected_subject = st.selectbox("Select a weak subject to get improvement suggestions:", weak_subjects)
+                if selected_subject:
+                    st.write(f"*Suggestions to Improve Performance in {selected_subject}:*")
+                    subject_suggestions = get_subject_suggestions(selected_subject)
+                    st.write(subject_suggestions)
+            else:
+                st.write("No weak subjects detected.")
 
             st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Overall Class Improvement Plan</h1>", unsafe_allow_html=True)
-            class_suggestions = get_class_suggestions(avg_marks_series.to_dict())
+            class_suggestions = get_class_suggestions(avg_marks.to_dict())
             st.write(class_suggestions)
 
             class_doc = Document()
@@ -331,17 +340,49 @@ def analysis():
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
 
+        # -------------------- ATTENDANCE ANALYSIS --------------------
+        elif analysis_type == "Attendance Analysis":
+            st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Attendance Analysis</h1>", unsafe_allow_html=True)
+            attendance_report = attendance_insights(df)
+            st.write(attendance_report)
+
+            fig, ax = plt.subplots(figsize=(8, 5))
+            sns.histplot(df['Attendance'], bins=10, kde=True, ax=ax)
+            ax.set_title("Attendance Distribution", fontsize=16)
+            ax.set_xlabel("Attendance (%)")
+            ax.set_ylabel("Number of Students")
+            st.pyplot(fig)
+
+            charts = [fig]
+            doc = save_insights_to_docx("Attendance Analysis", attendance_report, charts)
+            buffer = BytesIO()
+            doc.save(buffer)
+            buffer.seek(0)
+            st.download_button(
+                label="Download Attendance Insights",
+                data=buffer,
+                file_name="attendance_insights.docx",
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            )
+
         # -------------------- ASK QUESTIONS TO THE DATA --------------------
         elif analysis_type == "Ask Questions To The Data":
-            question = st.text_area("Ask a question about the dataset:")
+            st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Ask Questions To The Data</h1>", unsafe_allow_html=True)
+            st.write("You can ask questions about the dataset (examples: 'Which student has the lowest attendance?', 'Average marks in Maths', 'How many students scored below 40 in Science?').")
 
+            question = st.text_area("Ask a question about the dataset:")
             if st.button("Get Answer"):
-                context = df.to_string(index=False)
-                answer = query_gemini(question, context)
-                st.success(answer)
+                if not question.strip():
+                    st.warning("Please type a question before clicking 'Get Answer'.")
+                else:
+                    with st.spinner("Querying Gemini..."):
+                        answer = query_gemini(question, df)
+                    # display answer with a success box
+                    st.success("Answer from Gemini:")
+                    st.write(answer)
 
     else:
-        st.info("Please upload a CSV file with the following columns: Roll No, Name, Attendance, and at least one subject column.")
+        st.info("Please upload a CSV file with the required columns: Roll No, Name, Attendance, and at least one subject column.")
 
 
 if __name__ == "__main__":
