@@ -93,7 +93,7 @@ def summarize():
                 result = run_summary(llm_pro, vectordb.as_retriever())
             except Exception as e:
                 if "429" in str(e):
-                    st.warning("Quota hit for gemini-1.5-pro, retrying with gemini-1.5-flash...")
+                    #st.warning("Quota hit for gemini-1.5-pro, retrying with gemini-1.5-flash...")
                     llm_flash = ChatGoogleGenerativeAI(
                         model="gemini-1.5-flash",
                         temperature=0,

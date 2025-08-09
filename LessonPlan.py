@@ -41,8 +41,8 @@ The lesson plan should be well-structured, easy to follow, and include engaging 
         model = genai.GenerativeModel("gemini-1.5-pro")
         response = model.generate_content(prompt)
         return response.text.strip()
-    except Exception as e:
-        st.warning(f"Error with gemini-1.5-pro: {e}. Switching to gemini-1.5-flash...")
+    except Exception:
+        # Quietly fallback without showing full error
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
         return response.text.strip()

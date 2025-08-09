@@ -1,0 +1,8 @@
+[theme]
+base = "light"
+primaryColor = "#f57c00"                # Bright orange (buttons, highlights)
+backgroundColor = "#ffffff"             # White main background
+secondaryBackgroundColor = "#fbe2b6"    # Soft beige/peach secondary sections
+textColor = "#000000"                   # Black text
+font = "sans serif"                     # Clean, modern font
+
