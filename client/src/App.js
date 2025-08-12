@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Lottie from "lottie-react";
-import studentAnimation from "./STUDENT.json"; // Lottie animation JSON
+import studentAnimation from "./STUDENT.json";
 import {
   FaChalkboardTeacher,
   FaClipboardList,
@@ -9,7 +9,13 @@ import {
   FaUsers,
   FaCalendarCheck,
   FaRobot,
-  FaQuestionCircle
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope
 } from "react-icons/fa";
 
 export default function App() {
@@ -36,7 +42,6 @@ export default function App() {
 
       {/* Hero Section */}
       <div className="hero-content">
-        {/* Left Text Section */}
         <div className="hero-text">
           <h1>
             Simplifying Education for <br />
@@ -51,7 +56,6 @@ export default function App() {
           <button className="get-started">Get Started</button>
         </div>
 
-        {/* Right Animation Section */}
         <div className="hero-image">
           <Lottie
             animationData={studentAnimation}
@@ -63,75 +67,135 @@ export default function App() {
 
       {/* Features Section */}
       <section className="features-section">
+        <h2 className="features-title">Our Features</h2>
         <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon"><FaChalkboardTeacher /></div>
-            <h3>Lesson Plan Generation</h3>
-            <p>Create structured, AI-generated lesson plans tailored to your teaching goals.</p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><FaClipboardList /></div>
-            <h3>Lesson Summaries</h3>
-            <p>Automatically generate concise summaries for quick student revision.</p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><FaUserGraduate /></div>
-            <h3>Personalised Analysis</h3>
-            <p>Track each student’s performance with in-depth, AI-powered analytics.</p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><FaUsers /></div>
-            <h3>Collaborative Learning</h3>
-            <p>Encourage peer-to-peer engagement with group activities and shared resources.</p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><FaCalendarCheck /></div>
-            <h3>Smart Scheduling</h3>
-            <p>Organise classes, assignments, and deadlines with AI-powered reminders.</p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon"><FaRobot /></div>
-            <h3>AI Tutoring</h3>
-            <p>Offer students instant, AI-driven assistance for homework and queries.</p>
-          </div>
+          {features.map((feature, index) => (
+            <div className="feature-card" key={index}>
+              <div className="feature-icon">{feature.icon}</div>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Why Choose Us Section */}
       <section className="why-choose-us">
         <div className="why-container">
-          {/* Left Image */}
           <div className="why-image">
             <img
               src="https://images.pexels.com/photos/4491461/pexels-photo-4491461.jpeg"
               alt="Teacher explaining"
             />
           </div>
-
-          {/* Right Text */}
           <div className="why-text">
             <h2>Why Choose Us</h2>
             <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur.
+              Our platform is designed by educators for educators, combining
+              cutting-edge technology with pedagogical expertise to transform
+              the learning experience.
             </p>
             <ul>
-              <li>✔ Improve Your Career & Business</li>
-              <li>✔ Build Deeper Connections With More People</li>
-              <li>✔ Sharpen Your Decision-Making</li>
-              <li>✔ Feed Your Brain</li>
-              <li>✔ Treasure Other Cultures</li>
-              <li>✔ See the World (More Fully)</li>
+              <li>✔ AI-powered personalized learning paths</li>
+              <li>✔ Real-time performance analytics</li>
+              <li>✔ Intuitive interface for all age groups</li>
+              <li>✔ Secure and privacy-focused</li>
+              <li>✔ Continuous platform improvements</li>
+              <li>✔ 24/7 dedicated support</li>
             </ul>
             <button className="learn-more-btn">Learn More</button>
           </div>
         </div>
       </section>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-column">
+            <h3>EduEase</h3>
+            <p>Transforming education through innovative technology solutions that make learning accessible, engaging, and effective for everyone.</p>
+            <div className="social-icons">
+              <a href="#"><FaFacebook /></a>
+              <a href="#"><FaTwitter /></a>
+              <a href="#"><FaInstagram /></a>
+              <a href="#"><FaLinkedin /></a>
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Features</a></li>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-column">
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Tutorials</a></li>
+              <li><a href="#">Webinars</a></li>
+              <li><a href="#">API Docs</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-column">
+            <h3>Contact Us</h3>
+            <ul className="contact-info">
+              <li><FaMapMarkerAlt /> 123 Education St, Tech City</li>
+              <li><FaPhone /> +1 (555) 123-4567</li>
+              <li><FaEnvelope /> info@eduease.com</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} EduEase. All rights reserved.</p>
+          <div className="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
+
+const features = [
+  {
+    icon: <FaChalkboardTeacher />,
+    title: "Lesson Plan Generation",
+    description: "Create structured, AI-generated lesson plans tailored to your teaching goals."
+  },
+  {
+    icon: <FaClipboardList />,
+    title: "Lesson Summaries",
+    description: "Automatically generate concise summaries for quick student revision."
+  },
+  {
+    icon: <FaUserGraduate />,
+    title: "Personalised Analysis",
+    description: "Track each student's performance with in-depth, AI-powered analytics."
+  },
+  {
+    icon: <FaUsers />,
+    title: "Collaborative Learning",
+    description: "Encourage peer-to-peer engagement with group activities and shared resources."
+  },
+  {
+    icon: <FaCalendarCheck />,
+    title: "Smart Scheduling",
+    description: "Organize classes, assignments, and deadlines with AI-powered reminders."
+  },
+  {
+    icon: <FaRobot />,
+    title: "AI Tutoring",
+    description: "Offer students instant, AI-driven assistance for homework and queries."
+  }
+];
