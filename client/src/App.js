@@ -43,20 +43,25 @@ export default function App() {
       {/* Hero Section */}
       <div className="hero-content">
         <div className="hero-text">
+          {/* New Heading */}
+          <div className="platform-name">EduEase</div>
           <h1>
-            Simplifying Education for <br />
-            <span>All</span>
+            Revolutionizing Learning with AI
           </h1>
-          <h3>Your Smart Assignment & Quiz Platform</h3>
           <p>
-            EduEase makes learning interactive and grading effortless.
-            Teachers can create quizzes, students can submit instantly,
-            and AI handles the evaluation with personalized feedback.
+            EduEase is an all-in-one platform that empowers teachers with tools to create quizzes,
+             plan lessons, track performance, and streamline classroom management. 
+            With built-in support for mental well-being, it helps educators focus on what matters most—nurturing student success.
           </p>
-          <button className="get-started">Get Started</button>
+          <button
+          className="get-started"
+          onClick={() => {
+            window.location.href = "http://localhost:8501";
+          }}
+        >Get Started</button>
         </div>
 
-        <div className="hero-image">
+        <div className="hero-image" style={{ marginLeft: "-100px" }}>
           <Lottie
             animationData={studentAnimation}
             loop={true}
@@ -96,14 +101,22 @@ export default function App() {
               the learning experience.
             </p>
             <ul>
-              <li>✔ AI-powered personalized learning paths</li>
-              <li>✔ Real-time performance analytics</li>
-              <li>✔ Intuitive interface for all age groups</li>
-              <li>✔ Secure and privacy-focused</li>
-              <li>✔ Continuous platform improvements</li>
-              <li>✔ 24/7 dedicated support</li>
-            </ul>
-            <button className="learn-more-btn">Learn More</button>
+  <li>✔ Effortless quiz and lesson plan creation with AI assistance</li>
+  <li>✔ Instant, accurate grading with personalized feedback</li>
+  <li>✔ Real-time class-wide and individual performance tracking</li>
+  <li>✔ Streamlined workflow to save teachers valuable time</li>
+  <li>✔ Tools to support both academic and mental well-being</li>
+  <li>✔ Secure, user-friendly platform accessible to all</li>
+</ul>
+
+            <button
+              className="learn-more-btn"
+              onClick={() => {
+                window.location.href = "http://localhost:8501";
+              }}
+            >
+              Learn More
+            </button>
           </div>
         </div>
       </section>
@@ -113,7 +126,11 @@ export default function App() {
         <div className="footer-container">
           <div className="footer-column">
             <h3>EduEase</h3>
-            <p>Transforming education through innovative technology solutions that make learning accessible, engaging, and effective for everyone.</p>
+            <p>
+              Transforming education through innovative technology solutions
+              that make learning accessible, engaging, and effective for
+              everyone.
+            </p>
             <div className="social-icons">
               <a href="#"><FaFacebook /></a>
               <a href="#"><FaTwitter /></a>
@@ -185,8 +202,8 @@ const features = [
   },
   {
     icon: <FaUsers />,
-    title: "Collaborative Learning",
-    description: "Encourage peer-to-peer engagement with group activities and shared resources."
+    title: "Generates Quizes",
+    description: "EduEase lets teachers effortlessly create and share quizzes, with instant AI-powered evaluation and feedback."
   },
   {
     icon: <FaCalendarCheck />,
@@ -195,7 +212,7 @@ const features = [
   },
   {
     icon: <FaRobot />,
-    title: "AI Tutoring",
-    description: "Offer students instant, AI-driven assistance for homework and queries."
+    title: "Virtual AI Counsellor",
+    description: "Offer teachers instant, AI-driven assistance for wellness and queries."
   }
 ];
