@@ -3,16 +3,12 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
-# Load API keys from .env
 load_dotenv()
 
-# Access the GEMINI API key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Function to generate a lesson plan using Gemini
 def generate_lesson_plan(unit_details, session_duration, num_sessions):
     prompt = f"""
 Unit Details:
@@ -42,12 +38,10 @@ The lesson plan should be well-structured, easy to follow, and include engaging 
         response = model.generate_content(prompt)
         return response.text.strip()
     except Exception:
-        # Quietly fallback without showing full error
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
         return response.text.strip()
 
-# Function to get motivational content
 def get_motivational_content():
     prompt = "Give a motivational quote for a teacher who is nervous for a presentation"
 
@@ -60,9 +54,8 @@ def get_motivational_content():
         response = model.generate_content(prompt)
         return response.text.strip()
 
-# Streamlit UI for Lesson Plan
 def lessonplan():
-    st.title("📚 AI-Powered Lesson Planner")
+    st.title("AI-Powered Lesson Planner")
     unit_details = st.text_area("Provide details about the unit you want to teach:", height=200)
     session_duration = st.number_input("Enter the duration of each session (in hours):", min_value=1, step=1)
     num_sessions = st.number_input("Enter the number of sessions to complete the topic:", min_value=1, step=1)

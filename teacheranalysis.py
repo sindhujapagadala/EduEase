@@ -13,7 +13,6 @@ from animations import display_cards
 import os
 from dotenv import load_dotenv
 
-# Load API keys from .env
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -24,7 +23,6 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 
-# -------------------- Helper / Cached functions --------------------
 @st.cache_data
 def load_data(file):
     return pd.read_csv(file)
@@ -150,24 +148,21 @@ def save_insights_to_docx(title, insights, charts):
     return doc
 
 
-# -------------------- New: query_gemini function (fixes NameError) --------------------
 def query_gemini(question: str, df: pd.DataFrame) -> str:
     """
     Build a concise dataset summary and ask Gemini the question.
     We intentionally include only a short summary + first 10 rows to keep prompts small.
     """
-    # Basic metadata
+
     n_rows = len(df)
     columns = df.columns.tolist()
 
-    # Numeric summary (if present)
     numeric_df = df.select_dtypes(include=['number'])
     if not numeric_df.empty:
         numeric_summary = numeric_df.describe().round(2).to_string()
     else:
         numeric_summary = "No numeric columns."
 
-    # Head (limit to first 10 rows)
     head = df.head(10).to_string(index=False)
 
     prompt = f"""
@@ -196,7 +191,6 @@ Answer concisely, cite column names or row examples where relevant. If the quest
         return f"Error when calling Gemini: {e}"
 
 
-# -------------------- Main analysis / Streamlit UI --------------------
 def analysis():
     uploaded_file = st.file_uploader("Upload CSV file with student data", type="csv")
     analysis_type = st.sidebar.radio(
@@ -215,7 +209,6 @@ def analysis():
 
         subjects = [col for col in df.columns if col not in required_columns]
 
-        # -------------------- STUDENT-WISE PERFORMANCE --------------------
         if analysis_type == "Student Wise Performance Analysis":
             st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Student-wise Analysis</h1>", unsafe_allow_html=True)
             student_names = df['Name'].unique()
@@ -269,7 +262,6 @@ def analysis():
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
 
-        # -------------------- CLASS-WIDE PERFORMANCE --------------------
         elif analysis_type == "Class Wide Performance Analysis":
             st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Class-wide Analysis</h1>", unsafe_allow_html=True)
 
@@ -289,11 +281,9 @@ def analysis():
             highest_marks = df[subjects].max()
             lowest_marks = df[subjects].min()
 
-            # display_cards assumed to be your UI animation helper
             try:
                 display_cards("Class Subject Performance", avg_marks_series.mean(), highest_marks.max(), lowest_marks.min())
             except Exception:
-                # if animations fail, ignore and continue
                 pass
 
             if weak_subjects:
@@ -340,7 +330,6 @@ def analysis():
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
 
-        # -------------------- ATTENDANCE ANALYSIS --------------------
         elif analysis_type == "Attendance Analysis":
             st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Attendance Analysis</h1>", unsafe_allow_html=True)
             attendance_report = attendance_insights(df)
@@ -365,7 +354,6 @@ def analysis():
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
 
-        # -------------------- ASK QUESTIONS TO THE DATA --------------------
         elif analysis_type == "Ask Questions To The Data":
             st.markdown("<h1 style='font-size:30px;font-family:Garamond,serif;'>Ask Questions To The Data</h1>", unsafe_allow_html=True)
             st.write("You can ask questions about the dataset (examples: 'Which student has the lowest attendance?', 'Average marks in Maths', 'How many students scored below 40 in Science?').")
@@ -377,7 +365,6 @@ def analysis():
                 else:
                     with st.spinner("Querying Gemini..."):
                         answer = query_gemini(question, df)
-                    # display answer with a success box
                     st.success("Answer from Gemini:")
                     st.write(answer)
 

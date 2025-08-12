@@ -9,7 +9,6 @@ from wellness import counsellor
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# ------------------ THEME SETTINGS ------------------
 st.set_page_config(
     page_title="Your Smart Teaching Companion",
     page_icon=":teacher:",
@@ -17,7 +16,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Apply custom theme colors & font via CSS
 st.markdown(
     """
     <style>
@@ -117,13 +115,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ------------------ APP TITLE ------------------
 st.markdown(
     "<h1 style='text-align:center; font-size:3rem; font-family:Sans-serif; color:#000000;'>Your Smart Teaching Companion</h1>",
     unsafe_allow_html=True
 )
 
-# ------------------ SIDEBAR MENU ------------------
 options = st.sidebar.selectbox(
     "How May I Assist?",
     [
@@ -135,7 +131,6 @@ options = st.sidebar.selectbox(
     ]
 )
 
-# ------------------ ROUTING ------------------
 if options == "🧑‍🏫 Perform Analysis":
     analysis()
 elif options == "📝 Generate Quiz":
@@ -147,7 +142,6 @@ elif options == "📄 Summarize Lesson":
 elif options == "💡 Virtual AI Counsellor":
     counsellor()
 
-# ------------------ HIDE DEFAULT STREAMLIT ELEMENTS ------------------
 hide_st_style = """
     <style>
     #MainMenu {visibility: hidden;}

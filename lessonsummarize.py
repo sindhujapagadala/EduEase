@@ -10,7 +10,6 @@ import os
 from dotenv import load_dotenv
 import asyncio
 
-# Load API keys from .env
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -82,7 +81,6 @@ def summarize():
                 persist_directory=persist_directory
             )
 
-            # Try with pro first
             llm_pro = ChatGoogleGenerativeAI(
                 model="gemini-1.5-pro",
                 temperature=0,
@@ -93,7 +91,6 @@ def summarize():
                 result = run_summary(llm_pro, vectordb.as_retriever())
             except Exception as e:
                 if "429" in str(e):
-                    #st.warning("Quota hit for gemini-1.5-pro, retrying with gemini-1.5-flash...")
                     llm_flash = ChatGoogleGenerativeAI(
                         model="gemini-1.5-flash",
                         temperature=0,

@@ -7,14 +7,11 @@ from io import BytesIO
 import os
 from dotenv import load_dotenv
 
-# Load API keys from .env
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Function to get MCQ questions from Gemini
 def generate_mcq_questions(topic, difficulty, num_questions):
     prompt = f"""
     Generate a multiple-choice quiz with the following specifications:
@@ -46,7 +43,6 @@ def generate_mcq_questions(topic, difficulty, num_questions):
     response = model.generate_content(prompt)
     return response.text.strip()
 
-# Function to format quiz into a structured list
 def format_quiz(quiz):
     lines = quiz.split("\n")
     formatted_quiz = []
@@ -65,7 +61,6 @@ def format_quiz(quiz):
         formatted_quiz.append(current_question)
     return formatted_quiz
 
-# Function to generate DOCX
 def generate_docx(quiz, heading1, heading2):
     doc = Document()
     
@@ -92,7 +87,6 @@ def generate_docx(quiz, heading1, heading2):
     doc_io.seek(0)
     return doc_io
 
-# Streamlit App
 def MCQ():
     st.title("MCQ Quiz Generator")
 

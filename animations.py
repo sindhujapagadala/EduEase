@@ -1,13 +1,9 @@
 import streamlit as st
 
 def display_cards(title, average, highest, lowest):
-    # Create a container for the layout
     with st.container():
         st.subheader(title)
-        # Create columns for the layout
         col1, col2, col3 = st.columns(3)
-
-        # Create cards with Streamlit's built-in components
         with col1:
             st.markdown(
                 f"""
@@ -40,8 +36,6 @@ def display_cards(title, average, highest, lowest):
                 """,
                 unsafe_allow_html=True,
             )
-
-    # Add CSS styles with animations
     st.markdown(
         """
         <style>
