@@ -36,7 +36,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 2rem; /* Adds spacing between menu items */
+  gap: 2rem;
   list-style: none;
 }
 
@@ -48,7 +48,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem; /* Adds horizontal space */
+  padding: 1rem 2rem;
 }
 
 .nav-links .active {
@@ -70,6 +70,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 50px;
+  flex-wrap: wrap;
 }
 
 .hero-text {
@@ -100,8 +101,10 @@ body {
   padding: 20px;
   border-radius: 50%;
 }
-/* Features Section */
-/* Features Section */
+
+/* =========================
+   Features Section
+   ========================= */
 .features-section {
   background: linear-gradient(to bottom, #ffe3c7, #fff4e9);
   padding: 100px 20px;
@@ -161,10 +164,120 @@ body {
   line-height: 1.5;
 }
 
-/* Optional: Add a subtle icon space at the top */
 .feature-icon {
   font-size: 40px;
   color: #ff6600;
   margin-bottom: 15px;
 }
+/* =========================
+   Why Choose Us Section (Orange Gradient Theme)
+   ========================= */
+.why-choose-us {
+  padding: 60px 10%;
+  background: linear-gradient(135deg, #ff9d2f, #e57249);
+  color: white;
+}
 
+.why-container {
+  display: flex;
+  align-items: center;
+  gap: 60px; /* Increased gap between image and text */
+  flex-wrap: wrap;
+}
+
+.why-image {
+  flex: 1; /* Image takes half space */
+}
+
+.why-image img {
+  width: 100%; /* Make it fill its half */
+  max-width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.why-text {
+  flex: 1; /* Text takes half space */
+  max-width: 100%;
+}
+
+.why-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.why-text p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.why-text ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.why-text ul li {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.learn-more-btn {
+  padding: 10px 20px;
+  background: white;
+  border: none;
+  color: #ff6126;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
+.learn-more-btn:hover {
+  background: #ffe7d1;
+  color: #ff6126;
+}
+
+
+/* =========================
+   Responsive Adjustments
+   ========================= */
+@media (max-width: 1024px) {
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image {
+    margin-top: 30px;
+  }
+
+  .why-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .why-text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .features-title {
+    font-size: 2rem;
+  }
+
+  .why-text h2 {
+    font-size: 2rem;
+  }
+}
