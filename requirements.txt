@@ -11,3 +11,4 @@ pypdf
 docx
 python-docx
 streamlit
+transformers
