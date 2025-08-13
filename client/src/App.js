@@ -20,15 +20,23 @@ import {
 
 export default function App() {
   return (
-    <div className="hero-container">
+    <div className="hero-container" id="home">
       {/* Navbar */}
       <nav className="navbar">
         <div className="logo">EduEase</div>
         <ul className="nav-links">
-          <li className="active">Home</li>
-          <li>Features</li>
-          <li>AboutUs</li>
-          <li>Contact</li>
+          <li className="active">
+            <a href="#home">Home</a>
+          </li>
+          <li>
+            <a href="#features">Features</a>
+          </li>
+          <li>
+            <a href="#aboutus">About Us</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
         </ul>
         <button
           className="login-btn"
@@ -43,22 +51,23 @@ export default function App() {
       {/* Hero Section */}
       <div className="hero-content">
         <div className="hero-text">
-          {/* New Heading */}
           <div className="platform-name">EduEase</div>
-          <h1>
-            Revolutionizing Learning with AI
-          </h1>
+          <h1>Revolutionizing Learning with AI</h1>
           <p>
-            EduEase is an all-in-one platform that empowers teachers with tools to create quizzes,
-             plan lessons, track performance, and streamline classroom management. 
-            With built-in support for mental well-being, it helps educators focus on what matters most—nurturing student success.
+            EduEase is an all-in-one platform that empowers teachers with tools
+            to create quizzes, plan lessons, track performance, and streamline
+            classroom management. With built-in support for mental well-being,
+            it helps educators focus on what matters most—nurturing student
+            success.
           </p>
           <button
-          className="get-started"
-          onClick={() => {
-            window.location.href = "http://localhost:8501";
-          }}
-        >Get Started</button>
+            className="get-started"
+            onClick={() => {
+              window.location.href = "http://localhost:8501";
+            }}
+          >
+            Get Started
+          </button>
         </div>
 
         <div className="hero-image" style={{ marginLeft: "-100px" }}>
@@ -71,7 +80,7 @@ export default function App() {
       </div>
 
       {/* Features Section */}
-      <section className="features-section">
+      <section id="features" className="features-section">
         <h2 className="features-title">Our Features</h2>
         <div className="features-grid">
           {features.map((feature, index) => (
@@ -85,7 +94,7 @@ export default function App() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="why-choose-us">
+      <section id="aboutus" className="why-choose-us">
         <div className="why-container">
           <div className="why-image">
             <img
@@ -101,13 +110,23 @@ export default function App() {
               the learning experience.
             </p>
             <ul>
-  <li>✔ Effortless quiz and lesson plan creation with AI assistance</li>
-  <li>✔ Instant, accurate grading with personalized feedback</li>
-  <li>✔ Real-time class-wide and individual performance tracking</li>
-  <li>✔ Streamlined workflow to save teachers valuable time</li>
-  <li>✔ Tools to support both academic and mental well-being</li>
-  <li>✔ Secure, user-friendly platform accessible to all</li>
-</ul>
+              <li>
+                ✔ Effortless quiz and lesson plan creation with AI assistance
+              </li>
+              <li>
+                ✔ Instant, accurate grading with personalized feedback
+              </li>
+              <li>
+                ✔ Real-time class-wide and individual performance tracking
+              </li>
+              <li>✔ Streamlined workflow to save teachers valuable time</li>
+              <li>
+                ✔ Tools to support both academic and mental well-being
+              </li>
+              <li>
+                ✔ Secure, user-friendly platform accessible to all
+              </li>
+            </ul>
 
             <button
               className="learn-more-btn"
@@ -122,7 +141,7 @@ export default function App() {
       </section>
 
       {/* Footer Section */}
-      <footer className="footer">
+      <footer id="contact" className="footer">
         <div className="footer-container">
           <div className="footer-column">
             <h3>EduEase</h3>
@@ -132,41 +151,75 @@ export default function App() {
               everyone.
             </p>
             <div className="social-icons">
-              <a href="#"><FaFacebook /></a>
-              <a href="#"><FaTwitter /></a>
-              <a href="#"><FaInstagram /></a>
-              <a href="#"><FaLinkedin /></a>
+              <a href="#">
+                <FaFacebook />
+              </a>
+              <a href="#">
+                <FaTwitter />
+              </a>
+              <a href="#">
+                <FaInstagram />
+              </a>
+              <a href="#">
+                <FaLinkedin />
+              </a>
             </div>
           </div>
 
           <div className="footer-column">
             <h3>Quick Links</h3>
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Features</a></li>
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact</a></li>
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#features">Features</a>
+              </li>
+              <li>
+                <a href="#">Pricing</a>
+              </li>
+              <li>
+                <a href="#aboutus">About Us</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h3>Resources</h3>
             <ul>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Tutorials</a></li>
-              <li><a href="#">Webinars</a></li>
-              <li><a href="#">API Docs</a></li>
+              <li>
+                <a href="#">Blog</a>
+              </li>
+              <li>
+                <a href="#">Help Center</a>
+              </li>
+              <li>
+                <a href="#">Tutorials</a>
+              </li>
+              <li>
+                <a href="#">Webinars</a>
+              </li>
+              <li>
+                <a href="#">API Docs</a>
+              </li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h3>Contact Us</h3>
             <ul className="contact-info">
-              <li><FaMapMarkerAlt /> 123 Education St, Tech City</li>
-              <li><FaPhone /> +1 (555) 123-4567</li>
-              <li><FaEnvelope /> info@eduease.com</li>
+              <li>
+                <FaMapMarkerAlt /> 123 Education St, Tech City
+              </li>
+              <li>
+                <FaPhone /> +1 (555) 123-4567
+              </li>
+              <li>
+                <FaEnvelope /> info@eduease.com
+              </li>
             </ul>
           </div>
         </div>
@@ -188,31 +241,37 @@ const features = [
   {
     icon: <FaChalkboardTeacher />,
     title: "Lesson Plan Generation",
-    description: "Create structured, AI-generated lesson plans tailored to your teaching goals."
+    description:
+      "Create structured, AI-generated lesson plans tailored to your teaching goals."
   },
   {
     icon: <FaClipboardList />,
     title: "Lesson Summaries",
-    description: "Automatically generate concise summaries for quick student revision."
+    description:
+      "Automatically generate concise summaries for quick student revision."
   },
   {
     icon: <FaUserGraduate />,
     title: "Personalised Analysis",
-    description: "Track each student's performance with in-depth, AI-powered analytics."
+    description:
+      "Track each student's performance with in-depth, AI-powered analytics."
   },
   {
     icon: <FaUsers />,
-    title: "Generates Quizes",
-    description: "EduEase lets teachers effortlessly create and share quizzes, with instant AI-powered evaluation and feedback."
+    title: "Generates Quizzes",
+    description:
+      "EduEase lets teachers effortlessly create and share quizzes, with instant AI-powered evaluation and feedback."
   },
   {
     icon: <FaCalendarCheck />,
     title: "Smart Scheduling",
-    description: "Organize classes, assignments, and deadlines with AI-powered reminders."
+    description:
+      "Organize classes, assignments, and deadlines with AI-powered reminders."
   },
   {
     icon: <FaRobot />,
     title: "Virtual AI Counsellor",
-    description: "Offer teachers instant, AI-driven assistance for wellness and queries."
+    description:
+      "Offer teachers instant, AI-driven assistance for wellness and queries."
   }
 ];

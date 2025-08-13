@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -34,26 +38,31 @@ body {
   border-radius: 50%;
 }
 
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-links li {
-  cursor: pointer;
-}
-
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 15px 50px;
+  background: #ff9d2f;
+  color: white;
 }
 
-.nav-links .active {
-  border-bottom: 2px solid white;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
+
+.nav-links li a {
+  text-decoration: none;
+  color: inherit; /* No special link color, inherit from parent */
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+}
+
 
 .login-btn {
   background: white;

@@ -34,7 +34,7 @@ st.markdown(
 
         /* Sidebar */
         section[data-testid="stSidebar"] {
-            background-color: #f8a853ff; /* Orange sidebar */
+            background-color: #ff9d2f; /* Orange sidebar */
         }
 
         /* Keep sidebar selectbox default style */
