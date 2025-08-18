@@ -6,7 +6,6 @@ EduEase is a versatile platform designed to alleviate the workload of teachers. 
    - [Vennela Varshini Anasoori](https://www.linkedin.com/in/vennela-varshini-anasoori/)
    - [Hansika Reddy](https://www.linkedin.com/in/hansika-reddy-a32361325/)
    - [Sindhuja Pagadala](https://www.linkedin.com/in/sindhuja-pagadala-a5a290325/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
-   - [Khushi Arya](https://www.linkedin.com/in/khushi-arya-aa1515327/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 
 ## Inspiration
    In recent times, educators in schools, coaching centers, and colleges often struggle with overwhelming workloads, especially when tasked with providing individualized feedback to students in large classrooms. The high teacher-to-student ratios exacerbate this issue, leaving educators with limited time to focus on their core responsibilities of teaching and mentoring. As a result, teachers are increasingly prone to stress and burnout, often lacking adequate support, which hinders their ability to efficiently manage their responsibilities.
@@ -23,10 +22,10 @@ EduEase is a versatile platform designed to alleviate the workload of teachers. 
   - Generate lesson plan based on the topic and can customise no. of sessions and no. of hours per session.
 
 - **Summarise Lessons**: Reduces the burden over the teachers by:
-  - Lesson summary (when input text data on required topic is provided).
+  - Lesson summary (when input data on required topic is provided).
 
 - **Virtual AI counsellor**: A compassionate, human-centered chatbot designed to provide mental support and offer personalized suggestions to overburdened teachers.
 
-## Contact
+## Demo Video
 
-For any questions or feedback, please contact [vennelavarshini18](https://github.com/vennelavarshini18).
+> https://drive.google.com/file/d/1rCMoV8lkg9UKNjz1pZPxjL7G8AdrNFMP/view?usp=sharing
